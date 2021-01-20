@@ -3,10 +3,10 @@ import AppReducer from "./AppReducer";
 
 // initial state
 const initialState = {
-  watchlist: localStorage.getItem("watchlist")
+    watchlist: localStorage.getItem("watchlist")
     ? JSON.parse(localStorage.getItem("watchlist"))
     : [],
-  watched: localStorage.getItem("watched")
+    watched: localStorage.getItem("watched")
     ? JSON.parse(localStorage.getItem("watched"))
     : [],
 };
@@ -16,37 +16,37 @@ export const GlobalContext = createContext(initialState);
 
 // provider components
 export const GlobalProvider = (props) => {
-  const [state, dispatch] = useReducer(AppReducer, initialState);
+    const [state, dispatch] = useReducer(AppReducer, initialState);
 
-  useEffect(() => {
+    useEffect(() => {
     localStorage.setItem("watchlist", JSON.stringify(state.watchlist));
     localStorage.setItem("watched", JSON.stringify(state.watched));
-  }, [state]);
+    }, [state]);
 
   // actions
-  const addMovieToWatchlist = (movie) => {
+    const addMovieToWatchlist = (movie) => {
     dispatch({ type: "ADD_MOVIE_TO_WATCHLIST", payload: movie });
-  };
+    };
 
-  const removeMovieFromWatchlist = (id) => {
+    const removeMovieFromWatchlist = (id) => {
     dispatch({ type: "REMOVE_MOVIE_FROM_WATCHLIST", payload: id });
-  };
+    };
 
-  const addMovieToWatched = (movie) => {
+    const addMovieToWatched = (movie) => {
     dispatch({ type: "ADD_MOVIE_TO_WATCHED", payload: movie });
-  };
+    };
 
-  const moveToWatchlist = (movie) => {
+    const moveToWatchlist = (movie) => {
     dispatch({ type: "MOVE_TO_WATCHLIST", payload: movie });
-  };
+    };
 
-  const removeFromWatched = (id) => {
+    const removeFromWatched = (id) => {
     dispatch({ type: "REMOVE_FROM_WATCHED", payload: id });
-  };
+    };
 
-  return (
+    return (
     <GlobalContext.Provider
-      value={{
+        value={{
         watchlist: state.watchlist,
         watched: state.watched,
         addMovieToWatchlist,
@@ -54,9 +54,9 @@ export const GlobalProvider = (props) => {
         addMovieToWatched,
         moveToWatchlist,
         removeFromWatched,
-      }}
+        }}
     >
-      {props.children}
+        {props.children}
     </GlobalContext.Provider>
-  );
+    );
 };
